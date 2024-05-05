@@ -1,0 +1,6 @@
+create venv
+install requirements.txt
+makemigrations
+migrate
+check if the tesseract are installed or not ..!
+if not install it. check the os and install 

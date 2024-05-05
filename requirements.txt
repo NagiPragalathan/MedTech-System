@@ -21,3 +21,4 @@ widgetsnbextension==3.5.2
 xhtml2pdf==0.2.8
 djangorestframework-simplejwt
 pytesseract
+PyPDF2

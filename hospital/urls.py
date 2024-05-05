@@ -6,12 +6,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from .pres_pdf import prescription_pdf
 
+from hospital.Routes.Ocr import *
+
 # from . --> same directory
 # Views functions and urls must be linked. # of views == # of urls
 # App URL file - urls related to hospital
 
-
-urlpatterns = [
+urlpatterns = []
+custom_urls = [
+    path('file_to_txt', upload_image_view, name='file_to_txt'),
+]
+hospital_urls = [
     path('', views.hospital_home, name='hospital_home'),
     path('search/', views.search, name='search'),
     path('change-password/<int:pk>', views.change_password, name='change-password'),
@@ -48,6 +53,9 @@ urlpatterns = [
     path('delete-report/<int:pk>/', views.delete_report, name='delete-report'),
 
 ]
+
+urlpatterns.extend(custom_urls)
+urlpatterns.extend(hospital_urls) 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
