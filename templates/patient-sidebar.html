@@ -1,6 +1,7 @@
 {% load static %}
 
     <div class="profile-sidebar">
+      {% if patient.featured_image.url %}
       <div class="widget-profile pro-widget-content">
         <div class="profile-info-widget">
           <a href="#" class="booking-doc-img">
@@ -23,6 +24,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
       <div class="dashboard-widget">
         <nav class="dashboard-menu sidebar">
           <ul>
@@ -70,9 +72,21 @@
             </li>
 
             <li>
-              <a href="{% url 'doctor-test-list'%}" target="_blank">
+              <a href="{% url 'add_notify'%}">
                 <i class="fas fa-hourglass-start"></i>
-                <span>Test Information</span>
+                <span>Add Notification</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'add_caretaker'%}">
+                <i class="fas fa-user"></i>
+                <span>Add CaretTaker</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'MeetRoom'%}">
+                <i class="fas fa-user"></i>
+                <span>Meeting</span>
               </a>
             </li>
         

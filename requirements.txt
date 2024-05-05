@@ -23,3 +23,4 @@ djangorestframework-simplejwt
 pytesseract
 PyPDF2
 g4f
+serial

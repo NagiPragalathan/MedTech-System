@@ -7,6 +7,10 @@ from django.contrib import admin
 from .pres_pdf import prescription_pdf
 
 from hospital.Routes.Ocr import *
+from hospital.Routes.Notify import *
+from hospital.Routes.CareTaker import *
+from hospital.Routes.HeartRate import *
+from hospital.Routes.VideoConf import *
 
 # from . --> same directory
 # Views functions and urls must be linked. # of views == # of urls
@@ -54,9 +58,33 @@ hospital_urls = [
     path('delete-report/<int:pk>/', views.delete_report, name='delete-report'),
 
 ]
+NotifyUrls = [
+    path('add_notify', add_notification, name='add_notify'),
+    path('delete_notify/<uuid:notification_id>', delete_notification, name='delete_notify'),
+    path('edit_notify/<uuid:notification_id>', edit_notification, name='edit_notify'),
+    path('notification', notification, name='notification'),
+]
+CareTakerUrl = [
+    path('add_caretaker', add_caretaker, name='add_caretaker'),
+    path('caretaker_list', caretaker_list, name='caretaker_list'),
+    path('caretaker_edit/<uuid:caretaker_id>', caretaker_edit, name='caretaker_edit'),
+    path('caretaker_delete/<uuid:caretaker_id>', caretaker_delete, name='caretaker_delete'),
+]
+
+heart_rate = [
+    path('rate',get_rate,name='get_rate'),
+    path('heat_sen',sensor_data_stream,name='sensor_data_stream'),
+]
+video_conf_url = [
+    path('MeetRoom',MeetRoom,name='MeetRoom'),
+]
 
 urlpatterns.extend(custom_urls)
+urlpatterns.extend(video_conf_url)
+urlpatterns.extend(heart_rate)
+urlpatterns.extend(CareTakerUrl)
 urlpatterns.extend(hospital_urls) 
+urlpatterns.extend(NotifyUrls) 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
