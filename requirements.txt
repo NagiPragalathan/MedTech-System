@@ -22,3 +22,4 @@ xhtml2pdf==0.2.8
 djangorestframework-simplejwt
 pytesseract
 PyPDF2
+g4f

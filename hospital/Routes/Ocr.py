@@ -3,31 +3,117 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 import pytesseract
 from PIL import Image
-import io
+import io, json, os
 from PyPDF2 import PdfReader
 from hospital.models import Patient , PatientDocument
+from g4f.client import Client
+from django.conf import settings
 
+def generate_summary(text):
+    client = Client()
+    chat_completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+         messages=[
+                    {"role": "System", "content": "You are a use full ai to give the summary of the given content in english"},
+                    {"role": "user", "content": f"give me the summary of the following content '''{text}'''."}
+                  ]
+    )
+    ai_response = chat_completion.choices[0].message.content or ""
+    return ai_response
 
+def handle_conversation(request, user_input):
+    client = Client()
+    directory_path = os.path.join(settings.STATIC_ROOT, 'ai_convo')
+    os.makedirs(directory_path, exist_ok=True)
+    try:
+        file_path = os.path.join(directory_path, f'conversation_history{request.user.id}.json')
+        with open(file_path, 'r') as file:
+            conversation_history = json.load(file)
+    except FileNotFoundError:
+        conversation_history = []
+        conversation_history.append({"role": "system", "content": "You are a useful Ai for memorize my data about me and my documentation you should be give the details whenever i will ask you i can search the thing using keyword or concept so toy should proved details following structure if the document match more then one give thee dict in the set of list. give me the response in json structure like [{'document_id':0, 'document_short_details':'detail', 'summary_of_doc':'summary', 'updated_time_of_doc':'time', 'response_of_question':'response'},{'document_id':1, 'document_short_details':'detail', 'summary_of_doc':'summary', 'updated_time_of_doc':'time', 'response_of_question':'response'}]"})
+        
+    conversation_history.append({"role": "user", "content": user_input})
+    chat_completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=conversation_history
+    )
+    ai_response = chat_completion.choices[0].message.content or ""
+    conversation_history.append({"role": "assistant", "content": ai_response})
+    with open(file_path, 'w') as file:
+        json.dump(conversation_history, file)
+
+def get_bot_response(request):
+    directory_path = os.path.join(settings.STATIC_ROOT, 'ai_convo')
+    os.makedirs(directory_path, exist_ok=True)
+    client = Client()
+
+    if request.method == 'POST':
+        text = request.POST.get("text", "") + ". Give me the response the format of  [{'document_id': the document id where the content are picked, 'document_short_details':'detail', 'summary_of_doc':'summary', 'updated_time_of_doc':'time', 'response_of_question':'response'},{'document_id': the document id where the content are picked, 'document_short_details':'detail', 'summary_of_doc':'summary', 'updated_time_of_doc':'time', 'response_of_question':'response'}]"
+        try:
+            file_path = os.path.join(directory_path, f'conversation_history{request.user.id}.json')
+            with open(file_path, 'r') as file:
+                conversation_history = json.load(file)
+            conversation_history.append({"role": "user", "content": text})
+            
+            chat_completion = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=conversation_history
+            )
+            ai_response = chat_completion.choices[0].message.content or ""
+            try:
+                python_dict = json.loads(ai_response)
+                docs = []
+                docs_id = []
+                document_short_details = []
+                summary_of_doc = []
+                updated_time_of_doc = []
+                print(python_dict)
+                for i in python_dict:
+                    docs.append(PatientDocument.objects.get(id=int(i['document_id'])))
+                    docs_id.append(i['document_id'])
+                    document_short_details.append(i['document_short_details'])
+                    summary_of_doc.append(i['document_short_details'])
+                    updated_time_of_doc.append(i['updated_time_of_doc'])
+                patient = Patient.objects.get(user=request.user)
+                return render(request, "OCR_Ai/bot_temp.html",{'patient': patient, "ai_response":zip(docs, docs_id, document_short_details, summary_of_doc, updated_time_of_doc), "response_of_question":python_dict[0].get('response_of_question')})
+            except:
+                return render(request, "OCR_Ai/bot_temp.html",{'patient': patient, 'response_of_question': ai_response})
+        
+        except FileNotFoundError:
+            return HttpResponse("Details not exists.")
+    else:
+        patient = Patient.objects.get(user=request.user)
+        context = {'patient': patient}
+        return render(request, "OCR_Ai/bot_temp.html", context)
+    
+            
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 @csrf_exempt
 def upload_image_view(request):
-    if request.method == 'POST' and request.FILES['image']:
-        uploaded_file = request.FILES['image']
+    if request.method == 'POST' and request.FILES['document']:
+        uploaded_file = request.FILES['document']
         
         if is_valid_image(uploaded_file):        
             extracted_text = extract_text_from_image(uploaded_file)
         else:
             extracted_text = extract_text_from_pdf(uploaded_file)
+        summary = generate_summary(extracted_text)
+        updated_doc = PatientDocument.objects.create(user=request.user, file=uploaded_file, file_content=extracted_text, summary=summary)
+        req_data = f"['text content':'{extracted_text}', 'document id': {updated_doc.id},'summary': '{summary}', date:{updated_doc.last_updated_file}'']"
+        handle_conversation(request, req_data)
         
-        print("Extracted Text:")
-        print(extracted_text)
+        patient = Patient.objects.get(user=request.user)
+        doc_items = PatientDocument.objects.filter(user = request.user)[::-1]
+        context = {'patient': patient, "doc": doc_items}
         
-        return HttpResponse(extracted_text)
+        return render(request, 'OCR_Ai/get_file.html',context)
     else:
         patient = Patient.objects.get(user=request.user)
-        context = {'patient': patient}
+        doc_items = PatientDocument.objects.filter(user = request.user)[::-1]
+        context = {'patient': patient, "doc": doc_items}
         
         return render(request, 'OCR_Ai/get_file.html',context)
 

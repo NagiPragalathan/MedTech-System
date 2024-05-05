@@ -15,6 +15,7 @@ from hospital.Routes.Ocr import *
 urlpatterns = []
 custom_urls = [
     path('file_to_txt', upload_image_view, name='file_to_txt'),
+    path('get_bot_response', get_bot_response, name='get_bot_response'),
 ]
 hospital_urls = [
     path('', views.hospital_home, name='hospital_home'),

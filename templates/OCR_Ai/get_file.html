@@ -64,13 +64,12 @@
                     <a href="{% url 'patient-dashboard' %}">Home</a>
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">
-                    Patient Dashboard
+                    Patient Documents
                   </li>
                 </ol>
               </nav>
-              <h2 class="breadcrumb-title">Patient Dashboard</h2>{% include 'message.html' %}
+              <h2 class="breadcrumb-title">Patient Documents</h2>{% include 'message.html' %}
             </div>
-
           </div>
         </div>
       </div>
@@ -96,10 +95,10 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Upload Document</h5>
-                                        <form id="imageForm" enctype="multipart/form-data" action="file_to_txt" method="post">
+                                        <form id="documentForm" enctype="multipart/form-data" action="file_to_txt" method="post">
                                             <div class="custom-file mb-3">
-                                                <input type="file" class="custom-file-input" id="imageInput" name="image">
-                                                <label class="custom-file-label" for="imageInput">Choose Document</label>
+                                                <input type="file" class="custom-file-input" id="documentInput" name="document" onchange="updateFileName(this)">
+                                                <label class="custom-file-label" for="documentInput">Choose Document</label>
                                             </div>
                                             <button type="submit" class="btn btn-primary btn-block">Upload</button>
                                         </form>
@@ -108,6 +107,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Doc #</th>
+                                    <th>File</th>
+                                    <th>Summary</th>
+                                    <th>Last Updated</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in doc %}
+                                <tr>
+                                    <td>{{ i.id }}</td>
+                                    <td><a href="{{ i.file.url }}" class="card-link" title="{{ i.file.name }}">{{ i.file.name | truncatechars:20 }}</a></td>
+                                    <td>{{ i.summary }}</td>
+                                    <td>{{ i.last_updated_file }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
                     {% comment %} ------------------------------------------------------------------------------------------------------- {% endcomment %}
                 </div>
             </div>
@@ -145,6 +167,15 @@
               $('.toast').toast('show');
           });
       {% endfor %}
+      function updateFileName(input) {
+        // Get the selected file name
+        var fileName = input.files[0].name;
+
+        // Update the label text with the file name
+        var label = input.nextElementSibling;
+        label.innerText = fileName;
+    }
+
   </script>
 {% endif %}
 
