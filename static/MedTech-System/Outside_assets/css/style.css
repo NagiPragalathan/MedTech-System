@@ -2005,7 +2005,11 @@ html.menu-opened body {
 -----------------------*/
 
 .footer {
-    background-color: #15558d;
+	color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: capitalize;
 }
 .footer .footer-top {
 	padding: 40px 0;

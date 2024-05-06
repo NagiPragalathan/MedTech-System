@@ -1,2 +1,73 @@
 {% load static %}
 
+<footer class="footer" style="background: #fff; font-size: 20px; font-weight: 700; margin-bottom: 30px; border-radius: 11px; text-transform: capitalize; width: 102%; margin-left: -1%;">
+    <!-- Footer Top -->
+    <div class="footer-top">
+      <div class="container-fluid">
+        <div class="row">
+          
+          <div class="col-lg-6 col-md-6" style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 10%;">
+           
+                            
+                <h1>Med<span style="color:red">Tech</span></h1>
+                <div id="google_translate_element"></div>
+
+                <script>
+                function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+                }
+                
+                function loadGoogleTranslate() {
+                    var googleTranslateScript = document.createElement('script');
+                    googleTranslateScript.type = 'text/javascript';
+                    googleTranslateScript.async = true;
+                    googleTranslateScript.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(googleTranslateScript);
+                }
+                
+                // Load Google Translate when the page is loaded
+                window.onload = function () {
+                    loadGoogleTranslate();
+                };
+                </script>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Footer Top -->
+
+    <!-- Footer Bottom -->
+    
+    <!-- /Footer Bottom -->
+  </footer>
+
+  <script>
+    // Get the notify time value from Django template
+
+    // Function to check if the current time is within the range
+    function checkNotifyTime() {
+        let notifyTime = new Date("{{ userTime.notify_time|date:"D, d M Y H:i:s"}}");
+        // Get the current time
+        let currentTime = new Date();
+        console.log(notifyTime, currentTime)
+
+        // Calculate the time 10 seconds after notify time
+        let endTime = new Date(notifyTime.getTime() + 10 * 1000);
+
+        // Check if the current time is between notify time and 10 seconds after that
+        if (currentTime >= notifyTime && currentTime <= endTime) {
+            // Redirect to another page
+            console.log("running..!")
+            window.location.href = "{% url 'notification' %}";
+
+        }else{
+            console.log("missed")
+        }
+    }
+    console.log("start..!")
+
+    // Call checkNotifyTime function every 2 seconds using setInterval
+    setInterval(checkNotifyTime, 2000);
+</script>
