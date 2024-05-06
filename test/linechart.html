@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Rating Animation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas {
+      max-width: 400px;
+      margin: 20px auto;
+    }
+    #lastValue {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="heartChart"></canvas>
+  <div id="lastValue"></div>
+
+  <script>
+    // Function to generate random heart rate between 60 and 100
+    function generateHeartRate() {
+      return Math.floor(Math.random() * (90 - 70 + 1)) + 70;
+    }
+
+    const ctx = document.getElementById('heartChart').getContext('2d');
+    const heartChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['❤️', '❤️', '❤️', '❤️', '❤️'],
+        datasets: [{
+          label: 'Heart Rate',
+          data: [generateHeartRate(), generateHeartRate(), generateHeartRate(), generateHeartRate(), generateHeartRate()],
+          fill: false,
+          borderColor: 'red',
+          borderWidth: 2,
+          tension: 0.5
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false,
+            max: 100,
+            min: 60,
+            ticks: {
+              stepSize: 10
+            }
+          }
+        },
+        animation: {
+          duration: 1000, // Animation duration in milliseconds
+          easing: 'linear' // Linear easing for smoother animation
+        }
+      }
+    });
+
+    let timer = setInterval(() => {
+      const newHeartRate = generateHeartRate();
+      heartChart.data.datasets[0].data.push(newHeartRate);
+      if (heartChart.data.datasets[0].data.length > 5) {
+        heartChart.data.datasets[0].data.shift();
+      }
+      heartChart.update();
+    }, 2000); // Update interval in milliseconds
+
+    // Stop updating chart after 5 seconds and display last value
+    setTimeout(() => {
+      clearInterval(timer);
+      const lastValue = heartChart.data.datasets[0].data[4];
+      document.getElementById('lastValue').innerHTML = 'Last Heart Rate: ' + lastValue;
+    }, 7000); // Stop interval after 5 seconds
+  </script>
+</body>
+</html>

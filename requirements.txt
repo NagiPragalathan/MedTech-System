@@ -24,3 +24,4 @@ pytesseract
 PyPDF2
 g4f
 serial
+django-csp

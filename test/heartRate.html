@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Temperature Animation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas {
+      max-width: 400px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="temperatureChart"></canvas>
+
+  <script>
+    // Function to generate random body temperature between 97.5°F and 98.9°F (36.4°C and 37.2°C)
+    function generateBodyTemperature() {
+      return parseFloat(((Math.random() * (98.9 - 97.5)) + 97.5).toFixed(1));
+    }
+
+    const ctx = document.getElementById('temperatureChart').getContext('2d');
+    const temperatureChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['🌡️🔥', '🌡️🔥', '🌡️🔥', '🌡️🔥', '🌡️🔥'],
+        datasets: [{
+          label: 'Temperature',
+          data: [],
+          backgroundColor: 'rgba(255, 0, 0, 0.5)',
+          borderColor: 'red',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scale: {
+          angleLines: { display: false },
+          ticks: { display: false, suggestedMin: 97.5, suggestedMax: 98.9 }
+        },
+        legend: { display: false }
+      }
+    });
+
+    setInterval(() => {
+      const temperatures = Array.from({ length: 5 }, generateBodyTemperature);
+      temperatureChart.data.datasets[0].data = temperatures;
+      temperatureChart.update();
+    }, 500);
+  </script>
+</body>
+</html>

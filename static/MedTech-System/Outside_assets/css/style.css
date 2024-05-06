@@ -816,7 +816,7 @@ button.bg-danger:hover {
     transform-origin: left top 0;
 }
 .dropdown-item.active, .dropdown-item:active {
-    background-color: #0de0fe;
+    background-color: #ff0000;
 }
 .navbar-nav .open .dropdown-menu {
 	border: 0;
@@ -1509,7 +1509,7 @@ button.bg-danger:hover {
 .slick-prev:focus,
 .slick-next:hover,
 .slick-next:focus {
-    background-color: #0de0fe;
+    background-color: #ff0000;
 	color: #fff;
 	opacity: 1;
 }
@@ -1978,7 +1978,7 @@ button.bg-danger:hover {
     width: 31px;
 }
 .bar-icon span {
-    background-color: #0de0fe;
+    background-color: #ff0000;
     display: block;
     float: left;
     height: 3px;
@@ -2173,7 +2173,7 @@ html.menu-opened body {
     margin-bottom: 3px;
 }
 .login-header h3 a {
-    color: #0de0fe;
+    color: #ff0000;
     float: right;
     font-size: 15px;
     margin-top: 2px;
@@ -2395,11 +2395,11 @@ html.menu-opened body {
     -moz-osx-font-smoothing: grayscale;
 }
 .slick-dots li.slick-active button {
-    background-color: #0de0fe;
+    background-color: #ff0000;
 }
 .slick-dots li.slick-active button:before {
     opacity: 1;
-    color: #0de0fe;
+    color: #ff0000;
 }
 .slick-slide {
 	outline: none !important;
@@ -2452,7 +2452,7 @@ html.menu-opened body {
 }
 .speicality-img span i {
     font-size: 15px;
-	color:#0de0fe;
+	color:#ff0000;
 }
 .speicality-item p {
     font-size: 16px;
@@ -2604,21 +2604,21 @@ html.menu-opened body {
     padding-right: 3px;
 }
 .view-btn {
-    color: #0de0fe;
+    color: #ff0000;
     font-size: 13px;
-    border: 2px solid #0de0fe;
+    border: 2px solid #ff0000;
     text-align: center;
     display: block;
     font-weight: 500;
 	padding: 6px;
 }
 .view-btn:hover, .view-btn:focus {
-	background-color: #0de0fe;
+	background-color: #ff0000;
 	color: #fff;
 }
 .book-btn {
-	background-color: #0de0fe;
-    border: 2px solid #0de0fe;
+	background-color: #ff0000;
+    border: 2px solid #ff0000;
     color: #fff;
     font-size: 13px;
     text-align: center;
@@ -2645,7 +2645,7 @@ html.menu-opened body {
 	margin-top: 20px;
 }
 .about-content a {
-    background-color: #0de0fe;
+    background-color: #ff0000;
     border-radius: 4px;
 	color: #fff;
     display: inline-block;
@@ -2700,7 +2700,7 @@ html.menu-opened body {
     padding: 15px 0;
 }
 .breadcrumb-bar .breadcrumb-title {
-    color: #fff;
+    color: black;
     font-size: 22px;
     font-weight: 700;
     margin: 5px 0 0;
@@ -2712,13 +2712,13 @@ html.menu-opened body {
     padding: 0;
 }
 .page-breadcrumb ol li a {
-    color: #fff;
+    color: black;
 }
 .page-breadcrumb ol li.active {
-    color: #fff;
+    color: black;
 }
 .page-breadcrumb .breadcrumb-item + .breadcrumb-item:before {
-	color: #fff;
+	color: black;
 	font-size: 10px;
 }
 .sort-by {
@@ -2793,7 +2793,7 @@ html.menu-opened body {
     display: none;
     left: 4px;
     top: 0;
-    color: #0de0fe;
+    color: #ff0000;
     font-size: 11px;
 }
 .custom_check input:checked ~ .checkmark:after {
@@ -2862,8 +2862,8 @@ html.menu-opened body {
 	line-height: 18px;
 }
 .btn-search .btn {
-    background-color: #0de0fe;
-    border: 1px solid #0de0fe;
+    background-color: #ff0000;
+    border: 1px solid #ff0000;
     color: #fff;
     height: 46px;
 	font-weight:500;
@@ -4024,7 +4024,7 @@ html.menu-opened body {
 -----------------------*/
 
 .add-new-btn {
-    background-color: #0de0fe;
+    background-color: #ff0000;
     border-radius: 30px;
     color: #fff;
     display: inline-block;
@@ -4033,7 +4033,7 @@ html.menu-opened body {
     padding: 10px 20px;
 }
 .add-new-btn:focus, .add-new-btn:hover,.add-new-btn:active {
-	background-color: #0de0fe;
+	background-color: #ff0000;
     color: #fff;
 }
 .patient-info {
@@ -4075,7 +4075,7 @@ html.menu-opened body {
 	margin-bottom: 10px;
 }
 .add-more-item a {
-	color: #0de0fe;
+	color: #ff0000;
 	font-weight: 500;
 }
 .signature-wrap {
@@ -4478,8 +4478,8 @@ html.menu-opened body {
     color: #9f9f9f;
 }
 .chat-cont-right .chat-footer .input-group .input-group-append .btn.msg-send-btn {
-    background-color: #0de0fe;
-    border-color: #0de0fe;
+    background-color: #ff0000;
+    border-color: #ff0000;
     border-radius: 50%;
     color: #fff;
     margin-left: 10px;
@@ -5096,7 +5096,7 @@ html.menu-opened body {
 }
 .dashboard-menu > ul > li:hover > a,
 .dashboard-menu > ul > li.active > a {
-	color:#0de0fe;
+	color:#ff0000;
 }
 .dashboard-menu ul li a i {
     font-size: 16px;
@@ -6676,7 +6676,7 @@ html.menu-opened body {
 		padding: 30px 0;
 	} 
 	.login-header h3 a {
-		color: #0de0fe;
+		color: #ff0000;
 		float: none;
 		font-size: 15px;
 		margin-top: 10px;

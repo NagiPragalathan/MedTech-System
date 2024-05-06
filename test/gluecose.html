@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glucose Level Animation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas {
+      max-width: 400px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="glucoseChart"></canvas>
+
+  <script>
+    // Function to generate random glucose level between 70 and 150 mg/dL
+    function generateGlucoseLevel() {
+      return Math.floor(Math.random() * (150 - 70 + 1)) + 70;
+    }
+
+    const ctx = document.getElementById('glucoseChart').getContext('2d');
+    const glucoseChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['1', '2', '3', '4', '5'],
+        datasets: [{
+          label: 'Glucose Level (mg/dL)',
+          data: [generateGlucoseLevel(), generateGlucoseLevel(), generateGlucoseLevel(), generateGlucoseLevel(), generateGlucoseLevel()],
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false,
+            ticks: {
+              stepSize: 10
+            }
+          }
+        },
+        animation: {
+          duration: 1000, // Animation duration in milliseconds
+          easing: 'linear' // Linear easing for smoother animation
+        }
+      }
+    });
+
+    setInterval(() => {
+      const newGlucoseLevel = generateGlucoseLevel();
+      glucoseChart.data.datasets[0].data.push(newGlucoseLevel);
+      if (glucoseChart.data.datasets[0].data.length > 5) {
+        glucoseChart.data.datasets[0].data.shift();
+      }
+      glucoseChart.update();
+    }, 2000); // Update interval in milliseconds
+  </script>
+</body>
+</html>

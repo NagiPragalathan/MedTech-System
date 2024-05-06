@@ -18,6 +18,7 @@ from hospital.Routes.VideoConf import *
 
 urlpatterns = []
 custom_urls = [
+    path('show_doc', show_doc, name='show_doc'),
     path('file_to_txt', upload_image_view, name='file_to_txt'),
     path('get_bot_response', get_bot_response, name='get_bot_response'),
 ]

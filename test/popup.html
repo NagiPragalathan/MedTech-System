@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Example</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Open Popup
+  </button>
+  
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Example</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-200">
+  
+  <div class="container mx-auto mt-10">
+    <!-- Button to open modal -->
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="openModal()">
+      Open Popup
+    </button>
+    
+    <!-- Modal background -->
+    <div id="modal-background" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden"></div>
+    
+    <!-- Modal -->
+    <div id="modal" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md rounded-lg p-8 w-1/2 hidden">
+      <!-- Modal header -->
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold">Popup Title</h3>
+        <button class="text-gray-700 hover:text-gray-900" onclick="closeModal()">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="text-gray-700">
+        Content of the popup goes here...
+      </div>
+      <!-- Modal footer -->
+      <div class="mt-6 flex justify-end">
+        <button class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2" onclick="closeModal()">Close</button>
+        <!-- Additional buttons can be added here -->
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function openModal() {
+      document.getElementById('modal').classList.remove('hidden');
+      document.getElementById('modal-background').classList.remove('hidden');
+    }
+  
+    function closeModal() {
+      document.getElementById('modal').classList.add('hidden');
+      document.getElementById('modal-background').classList.add('hidden');
+    }
+  </script>
+  
+  </body>
+  </html>
+  
+</div>
+
+<!-- Bootstrap JS (jQuery and Popper.js are required) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

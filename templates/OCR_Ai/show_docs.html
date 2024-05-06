@@ -1,0 +1,49 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="p-4 bg-gray-100 rounded-lg">
+    <input type="text" id="searchInput" class="form-input block w-full mb-4 px-4 py-2 rounded-md border-gray-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" onkeyup="searchTable()" placeholder="Search for documents...">
+
+    <div class="overflow-x-auto">
+        <table id="documentTable" class="table-auto w-full bg-white shadow-md rounded-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-4 py-2">Doc #</th>
+                    <th class="px-4 py-2">File</th>
+                    <th class="px-4 py-2">Summary</th>
+                    <th class="px-4 py-2">Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in doc %}
+                <tr>
+                    <td class="border px-4 py-2">{{ i.id }}</td>
+                    <td class="border px-4 py-2"><a href="{{ i.file.url }}" class="card-link" title="{{ i.file.name }}">{{ i.file.name | truncatechars:20 }}</a></td>
+                    <td class="border px-4 py-2">{{ i.summary }}</td>
+                    <td class="border px-4 py-2">{{ i.last_updated_file }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("documentTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

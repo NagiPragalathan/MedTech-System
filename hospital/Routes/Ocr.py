@@ -186,3 +186,12 @@ def extract_text_from_pdf(pdf_file):
         extracted_text += page.extract_text()
     return extracted_text
     
+    
+def show_doc(request):
+    try:    
+        patient = Patient.objects.get(user=request.user)
+        doc_items = PatientDocument.objects.filter(user = request.user)[::-1]
+        context = {'patient': patient, "doc": doc_items}
+    except:
+        context = {}
+    return render(request, 'OCR_Ai/show_docs.html',context)
