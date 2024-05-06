@@ -95,7 +95,6 @@ def get_bot_response(request):
     
             
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 @csrf_exempt
 def upload_image_view(request):
@@ -143,6 +142,7 @@ def is_valid_image(image):
     else:
         return False
 
+
 def extract_text_from_image(image):
     """
     Extract text from an image.
@@ -153,10 +153,12 @@ def extract_text_from_image(image):
     Returns:
     - text (str): Extracted text from the image.
     """
-    # Open the image file
+    # Set the path to the Tesseract executable
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
+    
     with Image.open(image) as img:
         # Use pytesseract to extract text from the image
-        text = pytesseract.image_to_string(img)
+        text = pytesseract.image_to_string(img, lang="eng")
     return text
 
 
