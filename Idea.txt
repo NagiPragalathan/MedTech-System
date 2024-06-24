@@ -1,0 +1,13 @@
+Software Requirements:
+- Video conference
+- Map tracking
+- Chatbot implementation
+- Medicine identification
+- rating recommendation 
+- Ambulance tracking
+- Medicine e commerce
+- Patient report management(with llm and x-ray management). 
+Hardware Requirements
+- blood
+- glucose
+- stethoscope

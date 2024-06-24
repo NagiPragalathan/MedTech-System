@@ -78,6 +78,7 @@ heart_rate = [
 ]
 video_conf_url = [
     path('MeetRoom',MeetRoom,name='MeetRoom'),
+    path('api/latest-notification-time/', get_latest_notification_time, name='latest-notification-time'),
 ]
 
 urlpatterns.extend(custom_urls)
