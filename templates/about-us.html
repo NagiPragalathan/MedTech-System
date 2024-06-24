@@ -7,7 +7,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>MedTech</title>
+    <title>MedMate</title>
     
     <!-- Favicons -->
     <link type="image/x-icon" href="{% static 'MedTech-System/images/Normal/favicon.png' %}" rel="icon">
@@ -32,12 +32,12 @@
 	<body>
 
 		<!-- Main Wrapper -->
-		<div class="main-wrapper">
-		
+		<div class="main-wrapper"  style="background-color: #a0f78e;">
+
 			<!-- Header -->
 			<header class="header">{% include 'navbar_home.html' %}</header>
 			<!-- /Header -->
-			
+
 			<!-- Breadcrumb -->
 			<div class="breadcrumb-bar">
 				<div class="container-fluid">
@@ -61,23 +61,24 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-12">
-							<h5>About Us</h5>
-							<p>
-								MedTech is an internet platform that supports numerous hospitals. It offers urgent medical aid to those in need of emergency care. Its capability of tracking, monitoring, and sharing a patient's health records across all hospitals. Patients can also view information about various hospitals and providers and schedule appointments online.
-							</p>
+							<div class="card">
+								<div class="card-body">
+									<h5>About Us</h5>
+									<p style="color: #000000;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 20px;">
+										MedMate System is an advanced platform designed to revolutionize healthcare by integrating IoT devices for virtual health consultations. This innovative system enables real-time virtual consultations between patients and healthcare providers, enhancing the efficiency and effectiveness of healthcare delivery. By seamlessly integrating with IoT devices, MedMate System collects and monitors vital health data such as temperature, heartbeat, and glucose levels. Patients and healthcare providers can visualize this data through an intuitive and interactive health data dashboard, ensuring a comprehensive overview of patient health. The platform prioritizes secure communication, providing encrypted channels for patient-provider interactions. Additionally, it simplifies appointment scheduling and management, while offering notifications and alerts for critical health events and upcoming appointments. Medmate System also features robust reporting and analytics capabilities, allowing for detailed insights into patient health data. Overall, MedMate System leverages technology to deliver a superior healthcare experience.
+									</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-
-			</div>		
-			<!-- /Page Content -->
-   
+			</div>
 			
+			<!-- /Page Content -->
+
 			<!-- Footer -->
 			{% include 'footer.html' %}
 			<!-- /Footer -->
-			
-		   
 		</div>
 		<!-- /Main Wrapper -->
 	  

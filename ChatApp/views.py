@@ -57,15 +57,10 @@ def home(request,pk):
                 context = {
                 "page":"home",
                 "users":users,
-                
                 "patient":patients,
-                
                 "doctor":doctor,
-                
             }
             else:
-            
-            
                 context = {
                     "page":"home",
                     "users":users,
