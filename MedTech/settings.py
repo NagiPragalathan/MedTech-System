@@ -12,29 +12,20 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-import environ
-# django-environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-### setting up env
-env = environ.Env()
-
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'your-secret-key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.100', '127.0.0.1','5749-103-109-53-5.in.ngrok.io']
-# ALLOWED_HOSTS = ['mobile view', 'local host','ngrok -- keeps on changing']
+ALLOWED_HOSTS = ['192.168.0.100', '127.0.0.1', '5749-103-109-53-5.in.ngrok.io']
 
 # Application definition
 
@@ -54,8 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'ChatApp.apps.ChatappConfig',
     'debug_toolbar',
- 
-
+    'djongo',
 ]
 
 MIDDLEWARE = [
@@ -78,9 +68,7 @@ ROOT_URLCONF = 'MedTech.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,10 +88,15 @@ WSGI_APPLICATION = 'MedTech.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': {
+       'ENGINE': 'djongo',
+       'CLIENT': {
+           
+           'host': "mongodb+srv://nagi:nagi@cluster0.ohv5gsc.mongodb.net/",
+           'name':'MedMate',
+           'authMechanism': "SCRAM-SHA-1",
+        }
+   }
 }
 
 
@@ -153,27 +146,25 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 ### SSLCOMMERZ env variables
 #VARIABLE should be in capital letter.
-STORE_ID = env('STORE_ID')
-STORE_PASSWORD = env('STORE_PASSWORD')
-STORE_NAME = env('STORE_NAME')
+STORE_ID = 'your-store-id'
+STORE_PASSWORD = 'your-store-password'
+STORE_NAME = 'your-store-name'
 
 ###Mailtrap env Variables
-SMTP_HOST = env('SMTP_HOST')
-SMTP_PORT = env('SMTP_PORT')
-SMTP_USER = env('SMTP_USER')
-SMTP_PASSWORD = env('SMTP_PASSWORD')
+SMTP_HOST = 'smtp.mailtrap.io'
+SMTP_PORT = 587
+SMTP_USER = 'your-smtp-user'
+SMTP_PASSWORD = 'your-smtp-password'
 
 # EMAIL
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST = SMTP_HOST
 EMAIL_PORT = SMTP_PORT
 EMAIL_HOST_USER = SMTP_USER
 EMAIL_HOST_PASSWORD = SMTP_PASSWORD
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -181,10 +172,8 @@ EMAIL_USE_SSL = False
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'hospital.User'
 
-
 # SESSION AGE 45 Minutes
 SESSION_COOKIE_AGE = 45*60
 SESSION_SAVE_EVERY_REQUEST = True
-
 
 X_FRAME_OPTIONS = 'ALLOWALL'
