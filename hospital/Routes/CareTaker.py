@@ -33,3 +33,7 @@ def caretaker_delete(request, caretaker_id):
         caretaker.delete()
         return redirect('caretaker_list')
     return render(request, 'CareTaker/caretaker_delete.html', {'caretaker': caretaker})
+
+
+def geomap(request):
+    return render(request, "tamil_nadu_disease_map.html")

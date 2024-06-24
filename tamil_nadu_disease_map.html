@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5d62d95e6105ac9d716788fa2837b79e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_5d62d95e6105ac9d716788fa2837b79e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5d62d95e6105ac9d716788fa2837b79e = L.map(
+                "map_5d62d95e6105ac9d716788fa2837b79e",
+                {
+                    center: [11.1271, 78.6569],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 7,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b030bb0a8f8111ccd6c6b9f83094d74b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_b030bb0a8f8111ccd6c6b9f83094d74b.addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var marker_8db6b3ce0611c1143cb57625f7401e36 = L.marker(
+                [13.0827, 80.2707],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_f4b4c9e63c795cc81649c0053a489309 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_8db6b3ce0611c1143cb57625f7401e36.setIcon(icon_f4b4c9e63c795cc81649c0053a489309);
+        
+    
+        var popup_ca316ad437f9b1652a27861a54c4847b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_38a407c715f07af3f3c83b6e513f64cd = $(`<div id="html_38a407c715f07af3f3c83b6e513f64cd" style="width: 100.0%; height: 100.0%;">City: Chennai<br>Disease Count: 5</div>`)[0];
+                popup_ca316ad437f9b1652a27861a54c4847b.setContent(html_38a407c715f07af3f3c83b6e513f64cd);
+            
+        
+
+        marker_8db6b3ce0611c1143cb57625f7401e36.bindPopup(popup_ca316ad437f9b1652a27861a54c4847b)
+        ;
+
+        
+    
+    
+            marker_8db6b3ce0611c1143cb57625f7401e36.bindTooltip(
+                `<div>
+                     Chennai
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5343b78096872b8adbfbd25fd25663fc = L.marker(
+                [11.0168, 76.9558],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_48abd68aaad07ca8cbe2bf0e113d0435 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_5343b78096872b8adbfbd25fd25663fc.setIcon(icon_48abd68aaad07ca8cbe2bf0e113d0435);
+        
+    
+        var popup_283e26d17ed8bd165cd584fce9d8f85f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2df63920e965a8dee164b2b63155bea3 = $(`<div id="html_2df63920e965a8dee164b2b63155bea3" style="width: 100.0%; height: 100.0%;">City: Coimbatore<br>Disease Count: 18</div>`)[0];
+                popup_283e26d17ed8bd165cd584fce9d8f85f.setContent(html_2df63920e965a8dee164b2b63155bea3);
+            
+        
+
+        marker_5343b78096872b8adbfbd25fd25663fc.bindPopup(popup_283e26d17ed8bd165cd584fce9d8f85f)
+        ;
+
+        
+    
+    
+            marker_5343b78096872b8adbfbd25fd25663fc.bindTooltip(
+                `<div>
+                     Coimbatore
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_fb579eb5009286ccb601995fef9839a0 = L.marker(
+                [9.9252, 78.1198],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_dea33afc61a218636dcc325581f7226c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_fb579eb5009286ccb601995fef9839a0.setIcon(icon_dea33afc61a218636dcc325581f7226c);
+        
+    
+        var popup_954c3187d792a080b3a627d2358b4f52 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6ff063bb677bd9128b93000af43e9bb9 = $(`<div id="html_6ff063bb677bd9128b93000af43e9bb9" style="width: 100.0%; height: 100.0%;">City: Madurai<br>Disease Count: 18</div>`)[0];
+                popup_954c3187d792a080b3a627d2358b4f52.setContent(html_6ff063bb677bd9128b93000af43e9bb9);
+            
+        
+
+        marker_fb579eb5009286ccb601995fef9839a0.bindPopup(popup_954c3187d792a080b3a627d2358b4f52)
+        ;
+
+        
+    
+    
+            marker_fb579eb5009286ccb601995fef9839a0.bindTooltip(
+                `<div>
+                     Madurai
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_aacc0fe973f5ed51b804b75fa0d32164 = L.marker(
+                [10.7905, 78.7047],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_6ff1f55252e3c4480d66d057321f9c49 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_aacc0fe973f5ed51b804b75fa0d32164.setIcon(icon_6ff1f55252e3c4480d66d057321f9c49);
+        
+    
+        var popup_db9131e5a8e2d2fe24715b9af7f984f7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_605c1674ad5987544af7aaea221955b3 = $(`<div id="html_605c1674ad5987544af7aaea221955b3" style="width: 100.0%; height: 100.0%;">City: Tiruchirappalli<br>Disease Count: 13</div>`)[0];
+                popup_db9131e5a8e2d2fe24715b9af7f984f7.setContent(html_605c1674ad5987544af7aaea221955b3);
+            
+        
+
+        marker_aacc0fe973f5ed51b804b75fa0d32164.bindPopup(popup_db9131e5a8e2d2fe24715b9af7f984f7)
+        ;
+
+        
+    
+    
+            marker_aacc0fe973f5ed51b804b75fa0d32164.bindTooltip(
+                `<div>
+                     Tiruchirappalli
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_43907f5e25c85b5b091ad9ca93d10387 = L.marker(
+                [11.6643, 78.146],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_748f0a7e9913b01c0969948e6da0e950 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_43907f5e25c85b5b091ad9ca93d10387.setIcon(icon_748f0a7e9913b01c0969948e6da0e950);
+        
+    
+        var popup_08d51ce2ba3486e99dec0c4473899a34 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9ea2e1ec2f3dac073febca75a725cb4b = $(`<div id="html_9ea2e1ec2f3dac073febca75a725cb4b" style="width: 100.0%; height: 100.0%;">City: Salem<br>Disease Count: 9</div>`)[0];
+                popup_08d51ce2ba3486e99dec0c4473899a34.setContent(html_9ea2e1ec2f3dac073febca75a725cb4b);
+            
+        
+
+        marker_43907f5e25c85b5b091ad9ca93d10387.bindPopup(popup_08d51ce2ba3486e99dec0c4473899a34)
+        ;
+
+        
+    
+    
+            marker_43907f5e25c85b5b091ad9ca93d10387.bindTooltip(
+                `<div>
+                     Salem
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_bb3808177bca505662f1c42d551ce22d = L.marker(
+                [8.7139, 77.7567],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_c64733a2ea378c5767ed65b32c443566 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_bb3808177bca505662f1c42d551ce22d.setIcon(icon_c64733a2ea378c5767ed65b32c443566);
+        
+    
+        var popup_d2582313dd565d2eedbde8da13c0139a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_37cb5f3f0b06959c5ee6d4baee11f8b4 = $(`<div id="html_37cb5f3f0b06959c5ee6d4baee11f8b4" style="width: 100.0%; height: 100.0%;">City: Tirunelveli<br>Disease Count: 14</div>`)[0];
+                popup_d2582313dd565d2eedbde8da13c0139a.setContent(html_37cb5f3f0b06959c5ee6d4baee11f8b4);
+            
+        
+
+        marker_bb3808177bca505662f1c42d551ce22d.bindPopup(popup_d2582313dd565d2eedbde8da13c0139a)
+        ;
+
+        
+    
+    
+            marker_bb3808177bca505662f1c42d551ce22d.bindTooltip(
+                `<div>
+                     Tirunelveli
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_98a328a0635ed8bed4bc848227e6cba1 = L.marker(
+                [12.9165, 79.1325],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_1dca70bca6de2d7b5ef378f791bfea26 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_98a328a0635ed8bed4bc848227e6cba1.setIcon(icon_1dca70bca6de2d7b5ef378f791bfea26);
+        
+    
+        var popup_3892e86bf4ffef76bc30ac635b511513 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c23c36b062bc9abe64d3e8eaca638a57 = $(`<div id="html_c23c36b062bc9abe64d3e8eaca638a57" style="width: 100.0%; height: 100.0%;">City: Vellore<br>Disease Count: 4</div>`)[0];
+                popup_3892e86bf4ffef76bc30ac635b511513.setContent(html_c23c36b062bc9abe64d3e8eaca638a57);
+            
+        
+
+        marker_98a328a0635ed8bed4bc848227e6cba1.bindPopup(popup_3892e86bf4ffef76bc30ac635b511513)
+        ;
+
+        
+    
+    
+            marker_98a328a0635ed8bed4bc848227e6cba1.bindTooltip(
+                `<div>
+                     Vellore
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b6f2823a0c250d9e1701326fe767bc53 = L.marker(
+                [11.341, 77.7282],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_47e196070c0a908b107ed7933381ca6c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_b6f2823a0c250d9e1701326fe767bc53.setIcon(icon_47e196070c0a908b107ed7933381ca6c);
+        
+    
+        var popup_c93103dbd251bd1d125e5368121e7825 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1b868f406c03ca0548ec856e7c825f67 = $(`<div id="html_1b868f406c03ca0548ec856e7c825f67" style="width: 100.0%; height: 100.0%;">City: Erode<br>Disease Count: 9</div>`)[0];
+                popup_c93103dbd251bd1d125e5368121e7825.setContent(html_1b868f406c03ca0548ec856e7c825f67);
+            
+        
+
+        marker_b6f2823a0c250d9e1701326fe767bc53.bindPopup(popup_c93103dbd251bd1d125e5368121e7825)
+        ;
+
+        
+    
+    
+            marker_b6f2823a0c250d9e1701326fe767bc53.bindTooltip(
+                `<div>
+                     Erode
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1ae4269576e0bfc8308554d9b63adc99 = L.marker(
+                [11.1085, 77.3411],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_0938772db933139eb958e41fb865e39a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_1ae4269576e0bfc8308554d9b63adc99.setIcon(icon_0938772db933139eb958e41fb865e39a);
+        
+    
+        var popup_7584d74e1f3b3382bd2f4b6f11e58b92 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9a93480301f86981157c580d867de42f = $(`<div id="html_9a93480301f86981157c580d867de42f" style="width: 100.0%; height: 100.0%;">City: Tiruppur<br>Disease Count: 2</div>`)[0];
+                popup_7584d74e1f3b3382bd2f4b6f11e58b92.setContent(html_9a93480301f86981157c580d867de42f);
+            
+        
+
+        marker_1ae4269576e0bfc8308554d9b63adc99.bindPopup(popup_7584d74e1f3b3382bd2f4b6f11e58b92)
+        ;
+
+        
+    
+    
+            marker_1ae4269576e0bfc8308554d9b63adc99.bindTooltip(
+                `<div>
+                     Tiruppur
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4b2bb85107d44c0e48577867a50faa29 = L.marker(
+                [10.787, 79.1378],
+                {}
+            ).addTo(map_5d62d95e6105ac9d716788fa2837b79e);
+        
+    
+            var icon_9af66b4c8d3f0db28538171030a3cbdd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_4b2bb85107d44c0e48577867a50faa29.setIcon(icon_9af66b4c8d3f0db28538171030a3cbdd);
+        
+    
+        var popup_4114c9643fa6f58000404d2153592aaa = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_29a676601d64efdc1238e1e140647b3d = $(`<div id="html_29a676601d64efdc1238e1e140647b3d" style="width: 100.0%; height: 100.0%;">City: Thanjavur<br>Disease Count: 19</div>`)[0];
+                popup_4114c9643fa6f58000404d2153592aaa.setContent(html_29a676601d64efdc1238e1e140647b3d);
+            
+        
+
+        marker_4b2bb85107d44c0e48577867a50faa29.bindPopup(popup_4114c9643fa6f58000404d2153592aaa)
+        ;
+
+        
+    
+    
+            marker_4b2bb85107d44c0e48577867a50faa29.bindTooltip(
+                `<div>
+                     Thanjavur
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>
