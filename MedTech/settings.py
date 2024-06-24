@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'ChatApp.apps.ChatappConfig',
     'debug_toolbar',
-    'djongo',
 ]
 
 MIDDLEWARE = [
@@ -88,15 +87,10 @@ WSGI_APPLICATION = 'MedTech.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-   'default': {
-       'ENGINE': 'djongo',
-       'CLIENT': {
-           
-           'host': "mongodb+srv://nagi:nagi@cluster0.ohv5gsc.mongodb.net/",
-           'name':'MedMate',
-           'authMechanism': "SCRAM-SHA-1",
-        }
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
