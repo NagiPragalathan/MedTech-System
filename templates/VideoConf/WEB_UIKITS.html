@@ -1,5 +1,4 @@
-{% extends 'baseindex/index.html' %}
-{% block content %}
+
 <!-- End topbar header -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -74,8 +73,8 @@
     const roomID = getUrlParams(window.location.href)['roomID'] || Math.floor(Math.random() * 10000) + '';
     const userID = Math.floor(Math.random() * 10000) + '';
     const userName = 'userName' + userID;
-    const appID = 861817064;
-    const serverSecret = '83d612acf3f5e1fdae76cffb33b87802';
+    const appID = 1691259861;
+    const serverSecret = 'ca978886fabe676ad89c430ab232a708';
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
 
     const zp = ZegoUIKitPrebuilt.create(kitToken);
@@ -277,4 +276,3 @@
     document.getElementById('modal-background').classList.add('hidden');
   }
 </script>
-{% endblock %}
