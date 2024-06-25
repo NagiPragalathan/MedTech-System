@@ -27,3 +27,5 @@ image_path = 'example.jpg'
 extracted_text = extract_text_from_image(image_path)
 print("Extracted Text:")
 print(extracted_text)
+
+# user_query=hi
