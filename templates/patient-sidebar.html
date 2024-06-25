@@ -25,11 +25,19 @@
         </div>
       </div>
       {% endif %}
+      
       <div class="dashboard-widget">
         <nav class="dashboard-menu sidebar">
           <ul>
+
             <li class="active">
               <a href="{% url 'patient-dashboard' %}">
+                <i class="fas fa-columns"></i>
+                <span>Patient Dashboard</span>
+              </a>
+            </li>
+            <li class="">
+              <a href="{% url 'dashboard' %}">
                 <i class="fas fa-columns"></i>
                 <span>Dashboard</span>
               </a>
