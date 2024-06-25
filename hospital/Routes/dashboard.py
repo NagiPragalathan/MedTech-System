@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.db.models import Count
 from hospital.models import User, Patient, Hospital_Information, Notification
+import random
 
 def dashboard_view(request):
     # Query data
@@ -36,6 +37,22 @@ def dashboard_view(request):
     user_type_labels = list(user_types.keys())
     user_type_data = list(user_types.values())
 
+    # Random data for additional charts
+    cities = ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"]
+    random_data = {
+        "cities": cities,
+        "hospitals": [random.randint(10, 50) for _ in cities],
+        "doctors": [random.randint(50, 300) for _ in cities],
+        "patients": [random.randint(100, 1000) for _ in cities],
+    }
+    bubble_chart_data = [{"city": city, "patients": patients, "index": index, "radius": patients // 10} for index, (city, patients) in enumerate(zip(cities, random_data["patients"]))]
+    line_chart_data = [{"date": f"2023-06-{day}", "value": random.randint(20, 100)} for day in range(1, 31)]
+
+    # Debugging: print the data
+    print("Random Data:", random_data)
+    print("Bubble Chart Data:", bubble_chart_data)
+    print("Line Chart Data:", line_chart_data)
+
     context = {
         'num_users': num_users,
         'num_patients': num_patients,
@@ -49,6 +66,9 @@ def dashboard_view(request):
         'notification_counts': notification_counts,
         'user_type_labels': user_type_labels,
         'user_type_data': user_type_data,
+        'random_data': random_data,
+        'bubble_chart_data': bubble_chart_data,
+        'line_chart_data': line_chart_data,
     }
 
     return render(request, 'dashboard/dashboard.html', context)
