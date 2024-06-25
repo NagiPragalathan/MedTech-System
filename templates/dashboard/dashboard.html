@@ -1,0 +1,161 @@
+{% extends 'baseindex/index.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white p-6 rounded shadow">
+                <h2 class="text-lg font-bold">Total Users</h2>
+                <p class="text-3xl">{{ num_users }}</p>
+            </div>
+            <div class="bg-white p-6 rounded shadow">
+                <h2 class="text-lg font-bold">Total Patients</h2>
+                <p class="text-3xl">{{ num_patients }}</p>
+            </div>
+            <div class="bg-white p-6 rounded shadow">
+                <h2 class="text-lg font-bold">Total Hospitals</h2>
+                <p class="text-3xl">{{ num_hospitals }}</p>
+            </div>
+            <div class="bg-white p-6 rounded shadow">
+                <h2 class="text-lg font-bold">Total Notifications</h2>
+                <p class="text-3xl">{{ num_notifications }}</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded shadow mb-6">
+            <h2 class="text-lg font-bold mb-4">Number of Hospitals by Type</h2>
+            <canvas id="hospitalTypeChart"></canvas>
+        </div>
+
+        <div class="bg-white p-6 rounded shadow mb-6">
+            <h2 class="text-lg font-bold mb-4">Number of Patients by Blood Group</h2>
+            <canvas id="bloodGroupChart"></canvas>
+        </div>
+
+        <div class="bg-white p-6 rounded shadow mb-6">
+            <h2 class="text-lg font-bold mb-4">Number of Notifications Over Time</h2>
+            <canvas id="notificationsChart"></canvas>
+        </div>
+
+        <div class="bg-white p-6 rounded shadow mb-6">
+            <h2 class="text-lg font-bold mb-4">Number of Users by Type</h2>
+            <canvas id="userTypeChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Data for hospital type chart
+            const hospitalTypeData = {
+                labels: {{ hospital_type_labels|safe }},
+                datasets: [{
+                    label: 'Number of Hospitals',
+                    data: {{ hospital_type_data|safe }},
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            // Config for hospital type chart
+            const hospitalTypeConfig = {
+                type: 'bar',
+                data: hospitalTypeData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // Render hospital type chart
+            const hospitalTypeCtx = document.getElementById('hospitalTypeChart').getContext('2d');
+            new Chart(hospitalTypeCtx, hospitalTypeConfig);
+
+            // Data for blood group chart
+            const bloodGroupData = {
+                labels: {{ blood_group_labels|safe }},
+                datasets: [{
+                    label: 'Number of Patients',
+                    data: {{ blood_group_data|safe }},
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            // Config for blood group chart
+            const bloodGroupConfig = {
+                type: 'pie',
+                data: bloodGroupData,
+            };
+
+            // Render blood group chart
+            const bloodGroupCtx = document.getElementById('bloodGroupChart').getContext('2d');
+            new Chart(bloodGroupCtx, bloodGroupConfig);
+
+            // Data for notifications chart
+            const notificationsData = {
+                labels: {{ notification_dates|safe }},
+                datasets: [{
+                    label: 'Number of Notifications',
+                    data: {{ notification_counts|safe }},
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            // Config for notifications chart
+            const notificationsConfig = {
+                type: 'line',
+                data: notificationsData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // Render notifications chart
+            const notificationsCtx = document.getElementById('notificationsChart').getContext('2d');
+            new Chart(notificationsCtx, notificationsConfig);
+
+            // Data for user type chart
+            const userTypeData = {
+                labels: {{ user_type_labels|safe }},
+                datasets: [{
+                    label: 'Number of Users',
+                    data: {{ user_type_data|safe }},
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            // Config for user type chart
+            const userTypeConfig = {
+                type: 'doughnut',
+                data: userTypeData,
+            };
+
+            // Render user type chart
+            const userTypeCtx = document.getElementById('userTypeChart').getContext('2d');
+            new Chart(userTypeCtx, userTypeConfig);
+        });
+    </script>
+{% endblock %}

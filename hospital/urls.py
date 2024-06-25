@@ -11,6 +11,7 @@ from hospital.Routes.Notify import *
 from hospital.Routes.CareTaker import *
 from hospital.Routes.HeartRate import *
 from hospital.Routes.VideoConf import *
+from hospital.Routes.dashboard import *
 
 # from . --> same directory
 # Views functions and urls must be linked. # of views == # of urls
@@ -79,6 +80,7 @@ heart_rate = [
 video_conf_url = [
     path('MeetRoom',MeetRoom,name='MeetRoom'),
     path('geomap',geomap,name='geomap'),
+    path('dashboard/', dashboard_view, name='dashboard'),
     path('api/latest-notification-time/', get_latest_notification_time, name='latest-notification-time'),
 ]
 
