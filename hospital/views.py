@@ -33,6 +33,8 @@ from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.views.decorators.csrf import csrf_exempt
+from django.db import IntegrityError, transaction
+
 
 
 # Create your views here.
@@ -448,45 +450,75 @@ def hospital_doctor_list(request, pk):
 @csrf_exempt
 @login_required(login_url="login")
 def hospital_doctor_register(request, pk):
-    if request.user.is_authenticated: 
-        
+    if request.user.is_authenticated:
         if request.user.is_doctor:
-            doctor = Doctor_Information.objects.get(user=request.user)
-            hospitals = Hospital_Information.objects.get(hospital_id=pk)
-            
+            try:
+                doctor = Doctor_Information.objects.get(user=request.user)
+            except Doctor_Information.DoesNotExist:
+                messages.error(request, 'Doctor information not found')
+                return redirect('doctor-dashboard')
+
+            try:
+                hospitals = Hospital_Information.objects.get(hospital_id=pk)
+            except Hospital_Information.DoesNotExist:
+                messages.error(request, 'Hospital information not found')
+                return redirect('doctor-dashboard')
+
             departments = hospital_department.objects.filter(hospital=hospitals)
             specializations = specialization.objects.filter(hospital=hospitals)
-            
+
             if request.method == 'POST':
-                if 'certificate_image' in request.FILES:
-                    certificate_image = request.FILES['certificate_image']
-                else:
-                    certificate_image = "doctors_certificate/default.png"
-                
+                certificate_image = request.FILES.get('certificate_image', 'doctors_certificate/default.png')
                 department_id_selected = request.POST.get('department_radio')
                 specialization_id_selected = request.POST.get('specialization_radio')
-                
-                department_chosen = hospital_department.objects.get(hospital_department_id=department_id_selected)
-                specialization_chosen = specialization.objects.get(specialization_id=specialization_id_selected)
-                
-                doctor.department_name = department_chosen
-                doctor.specialization = specialization_chosen
-                doctor.register_status = 'Pending'
-                doctor.certificate_image = certificate_image
-                
-                doctor.save()
-                
-                messages.success(request, 'Hospital Registration Request Sent')
-                
-                return redirect('doctor-dashboard')
-                
-                 
-            context = {'doctor': doctor, 'hospitals': hospitals, 'departments': departments, 'specializations': specializations}
+
+                try:
+                    department_chosen = hospital_department.objects.get(hospital_department_id=department_id_selected)
+                    specialization_chosen = specialization.objects.get(specialization_id=specialization_id_selected)
+                except (hospital_department.DoesNotExist, specialization.DoesNotExist):
+                    messages.error(request, 'Invalid department or specialization selected')
+                    return render(request, 'hospital-doctor-register.html', {
+                        'doctor': doctor,
+                        'hospitals': hospitals,
+                        'departments': departments,
+                        'specializations': specializations
+                    })
+
+                try:
+                    with transaction.atomic():
+                        doctor.department_name = department_chosen
+                        doctor.specialization = specialization_chosen
+                        doctor.register_status = 'Pending'
+                        doctor.certificate_image = certificate_image
+                        doctor.save()
+
+                    messages.success(request, 'Hospital Registration Request Sent')
+                    return redirect('doctor-dashboard')
+
+                except IntegrityError as e:
+                    messages.error(request, f'Registration failed: {e}')
+                    return render(request, 'hospital-doctor-register.html', {
+                        'doctor': doctor,
+                        'hospitals': hospitals,
+                        'departments': departments,
+                        'specializations': specializations
+                    })
+
+            context = {
+                'doctor': doctor,
+                'hospitals': hospitals,
+                'departments': departments,
+                'specializations': specializations
+            }
             return render(request, 'hospital-doctor-register.html', context)
+        else:
+            logout(request)
+            messages.info(request, 'Not Authorized')
+            return redirect('doctor-login')
     else:
         logout(request)
         messages.info(request, 'Not Authorized')
-        return render(request, 'doctor-login.html')
+        return redirect('doctor-login')
     
    
 def testing(request):

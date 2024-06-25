@@ -1,4 +1,5 @@
 import email
+from django.core.mail import send_mail, BadHeaderError
 from email.mime import image
 from multiprocessing import context
 from unicodedata import name
@@ -30,6 +31,8 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils.html import strip_tags
 from .utils import searchMedicines
+from django.shortcuts import redirect, get_object_or_404
+from django.db import IntegrityError, transaction
 
 # Create your views here.
 
@@ -374,7 +377,7 @@ def edit_hospital(request, pk):
                 services = service(hospital=hospital)
                 services.service_name = service_name[i]
                 services.save()
-                
+
             for i in range(len(department_name)):
                 departments = hospital_department(hospital=hospital)
                 departments.hospital_department_name = department_name[i]
@@ -851,44 +854,52 @@ def admin_doctor_profile(request,pk):
     context = {'doctor': doctor, 'admin': admin, 'experiences': experience, 'educations': education}
     return render(request, 'hospital_admin/doctor-profile.html',context)
 
-
 @csrf_exempt
 @login_required(login_url='admin_login')
-def accept_doctor(request,pk):
-    doctor = Doctor_Information.objects.get(doctor_id=pk)
-    doctor.register_status = 'Accepted'
-    doctor.save()
-    
-    experience= Experience.objects.filter(doctor_id=pk)
-    education = Education.objects.filter(doctor_id=pk)
-    
-    # Mailtrap
-    doctor_name = doctor.name
-    doctor_email = doctor.email
-    doctor_department = doctor.department_name.hospital_department_name
-
-    doctor_specialization = doctor.specialization.specialization_name
-
-    subject = "Acceptance of Doctor Registration"
-
-    values = {
-            "doctor_name":doctor_name,
-            "doctor_email":doctor_email,
-            "doctor_department":doctor_department,
-
-            "doctor_specialization":doctor_specialization,
-        }
-
-    html_message = render_to_string('hospital_admin/accept-doctor-mail.html', {'values': values})
-    plain_message = strip_tags(html_message)
+def accept_doctor(request, pk):
+    try:
+        doctor = Doctor_Information.objects.get(doctor_id=pk)
+    except Doctor_Information.DoesNotExist:
+        messages.error(request, 'Doctor not found.')
+        return redirect('register-doctor-list')
 
     try:
-        send_mail(subject, plain_message, 'hospital_admin@gmail.com',  [doctor_email], html_message=html_message, fail_silently=False)
-    except BadHeaderError:
-        return HttpResponse('Invalid header found')
+        with transaction.atomic():
+            doctor.register_status = 'Accepted'
+            doctor.save()
 
-    messages.success(request, 'Doctor Accepted!')
-    return redirect('register-doctor-list')
+            experience = Experience.objects.filter(doctor_id=pk)
+            education = Education.objects.filter(doctor_id=pk)
+
+            # Mailtrap
+            doctor_name = doctor.name
+            doctor_email = doctor.email
+            doctor_department = doctor.department_name.hospital_department_name
+            doctor_specialization = doctor.specialization.specialization_name
+
+            subject = "Acceptance of Doctor Registration"
+
+            values = {
+                "doctor_name": doctor_name,
+                "doctor_email": doctor_email,
+                "doctor_department": doctor_department,
+                "doctor_specialization": doctor_specialization,
+            }
+
+            html_message = render_to_string('hospital_admin/accept-doctor-mail.html', {'values': values})
+            plain_message = strip_tags(html_message)
+
+            try:
+                send_mail(subject, plain_message, 'hospital_admin@gmail.com', [doctor_email], html_message=html_message, fail_silently=False)
+            except BadHeaderError:
+                return HttpResponse('Invalid header found')
+
+            messages.success(request, 'Doctor Accepted!')
+            return redirect('register-doctor-list')
+    
+    except IntegrityError as e:
+        messages.error(request, f'An error occurred: {e}')
+        return redirect('register-doctor-list')
 
 
 @csrf_exempt
