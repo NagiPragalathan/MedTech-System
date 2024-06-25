@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>MedTech</title>
+	<title>MedMate</title>
 	
 	<!-- Favicons -->
 	<link type="image/x-icon" href="{% static 'MedTech-System/images/Normal/favicon.png' %}" rel="icon">
@@ -28,6 +28,56 @@
 			<script src="assets/js/html5shiv.min.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+
+		<style>
+			
+        .card {
+            text-align: center;
+            border: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 6px 6px rgba(0, 0, 0, 0.16);
+        }
+
+        .card img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+        }
+
+        .card-title {
+            margin-top: 15px;
+            font-size: 1.5rem;
+        }
+
+        .card-read-more {
+            margin-top: 15px;
+        }
+
+        .card-read-more a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .card-read-more a:hover {
+            text-decoration: underline;
+        }
+
+        .container-fostrap {
+            padding-top: 0;
+        }
+
+        .container-fostrap .content {
+            margin-top: 20px;
+        }
+    </style>
+		
 	
 	</head>
 	<body>
@@ -106,80 +156,52 @@
 						</div>
 						
 						<div class="col-md-7 col-lg-8 col-xl-9">
-							<section class="wrapper" style="height: 0px;">
-								<div class="container-fostrap" style="padding-top: 0px;">
+								<div class="container-fostrap"
+								style="    display: flex;
+								flex-direction: column;
+								flex-wrap: nowrap;
+								align-content: stretch;
+								justify-content: flex-start;
+								align-items: center;
+							">
 									<h1 class="card-title" style="text-align: center;font-size: 45px;">All Hospitals</h1>
-									<hr>	
-
+									<hr>  
+							
 									<div class="content">
 										<div class="container">
 											<div class="row">
 												{% for hospital in hospitals %}
-
-												<div class="col-xs-12 col-sm-4">
+												<div class="col-xs-12 col-sm-6 col-md-4 mb-4">
 													<div class="card">
+														<h4 class="card-title">{{hospital.name}}</h4>
 														<a class="img-card" href="#">
-														<img src="{{hospital.featured_image.url}}" />
-													  </a>
-														<div class="card-content">
-															<h4 class="card-title">
-																<a href="#"> {{hospital.name}}
-															  </a>
-															</h4>   
-														</div>
+															<img src="{{hospital.featured_image.url}}" alt="{{hospital.name}}">
+														</a>
 														<div class="card-read-more">
-															<a href="{% url 'hospital-profile' pk=hospital.hospital_id %}" class="btn btn-link btn-block">
-																Explore
-															</a>
+															<a style="color: rgb(64, 150, 122);" href="{% url 'hospital-profile' pk=hospital.hospital_id %}" class="btn btn-link btn-block">Explore</a>
 														</div>
 													</div>
 												</div>
 												{% endfor %}
-
-												
 											</div>
 										</div>
-										
 									</div>
 								</div>
-								
-							</section>
-							{% include 'pagination.html' with queryset=hospitals custom_range=custom_range %}
-						</div>
-						
-					</div>
-				</div>
-				
-			</div>		
-			<!-- /Page Content -->
-
-			
-   
-			<!-- Footer -->
-			{% include 'footer.html' %}
-			<!-- /Footer -->
-		   
-		</div>
-		<!-- /Main Wrapper -->
-	  
-		<!-- jQuery -->
-		<script src="{% static 'MedTech-System/js/Normal/jquery.min.js' %}"></script>
-		
-		<!-- Bootstrap Core JS -->
-		<script src="{% static 'MedTech-System/js/Normal/popper.min.js' %}"></script>
-		<script src="{% static 'MedTech-System/js/Normal/bootstrap.min.js' %}"></script>
-		
-		<!-- Sticky Sidebar JS -->
-        <script src="{% static 'MedTech-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
-        <script src="{% static 'MedTech-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
-		
-		<!-- Custom JS -->
-		<script src="{% static 'MedTech-System/Outside_assets/js/script.js' %}"></script>
-
-		<!-- Searchbar JS -->
-		<script src="{% static 'MedTech-System/js/Normal/sidebar.js' %}"></script>
-		
-	</body>
-
-<!-- doccure/change-password.html  30 Nov 2019 04:12:18 GMT -->
-</html>
+							
+								{% include 'pagination.html' with queryset=hospitals custom_range=custom_range %}
+								{% include 'footer.html' %}
+							
+								<!-- jQuery -->
+								<script src="{% static 'MedTech-System/js/Normal/jquery.min.js' %}"></script>
+								<!-- Bootstrap Core JS -->
+								<script src="{% static 'MedTech-System/js/Normal/popper.min.js' %}"></script>
+								<script src="{% static 'MedTech-System/js/Normal/bootstrap.min.js' %}"></script>
+								<!-- Sticky Sidebar JS -->
+								<script src="{% static 'MedTech-System/plugins/Normal/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+								<script src="{% static 'MedTech-System/plugins/Normal/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+								<!-- Custom JS -->
+								<script src="{% static 'MedTech-System/Outside_assets/js/script.js' %}"></script>
+								<!-- Searchbar JS -->
+								<script src="{% static 'MedTech-System/js/Normal/sidebar.js' %}"></script>
+							</body>
+							</html>
